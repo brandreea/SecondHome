@@ -22,7 +22,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.secondhome.R;
 import com.secondhome.contact.ContactActivity;
-import com.secondhome.login.AppSingleton;
+import com.secondhome.data.model.AppSingleton;
+import com.secondhome.login.LoginActivity;
+import com.secondhome.login.MyProfileActivity;
 import com.secondhome.mains.Main2LoggedInActivity;
 import com.secondhome.mains.MainActivity;
 import com.secondhome.showanimals.AnimalsActivity;
@@ -114,6 +116,12 @@ public class LocationActvity extends AppCompatActivity implements NavigationView
                 break;
             case R.id.db8:
                 intent=new Intent(LocationActvity.this, ContactActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.db9:
+                if(AppSingleton.getInstance(getApplicationContext()).getUser()!=null)
+                    intent=new Intent(LocationActvity.this, MyProfileActivity.class);
+                else intent=new Intent(LocationActvity.this, LoginActivity.class);
                 startActivity(intent);
                 break;
             case R.id.db10:

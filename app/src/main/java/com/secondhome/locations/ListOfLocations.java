@@ -17,7 +17,9 @@ import android.widget.Button;
 import com.google.android.material.navigation.NavigationView;
 import com.secondhome.R;
 import com.secondhome.contact.ContactActivity;
-import com.secondhome.login.AppSingleton;
+import com.secondhome.data.model.AppSingleton;
+import com.secondhome.login.LoginActivity;
+import com.secondhome.login.MyProfileActivity;
 import com.secondhome.mains.Main2LoggedInActivity;
 import com.secondhome.mains.MainActivity;
 import com.secondhome.showanimals.AnimalsActivity;
@@ -144,6 +146,12 @@ public class ListOfLocations extends AppCompatActivity implements NavigationView
                 break;
             case R.id.db8:
                 intent=new Intent(ListOfLocations.this, ContactActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.db9:
+                if(AppSingleton.getInstance(getApplicationContext()).getUser()!=null)
+                    intent=new Intent(ListOfLocations.this, MyProfileActivity.class);
+                else intent=new Intent(ListOfLocations.this, LoginActivity.class);
                 startActivity(intent);
                 break;
             case R.id.db10:

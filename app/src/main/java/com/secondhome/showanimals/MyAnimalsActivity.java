@@ -32,14 +32,16 @@ import com.google.android.material.navigation.NavigationView;
 import com.secondhome.R;
 import com.secondhome.contact.ContactActivity;
 import com.secondhome.data.model.Animal;
+import com.secondhome.data.model.request.body.GetAnimalsCustomRequest;
 import com.secondhome.locations.ListOfLocations;
-import com.secondhome.login.AppSingleton;
+import com.secondhome.data.model.AppSingleton;
 import com.secondhome.login.LoginActivity;
 import com.secondhome.login.MyProfileActivity;
 import com.secondhome.mains.Main2LoggedInActivity;
 import com.secondhome.mains.MainActivity;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +59,8 @@ public class MyAnimalsActivity extends AppCompatActivity implements NavigationVi
     private NavigationView navigationView;
     private LinearLayout catsview;
     private Drawable paw;
+    private String uid;
+    private String pid;
     private static final String UrlForLogin="https://secondhome.fragmentedpixel.com/server/getanimals.php/";
     private String animalType;
 
@@ -64,7 +68,6 @@ public class MyAnimalsActivity extends AppCompatActivity implements NavigationVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_animals);
-
       animalType= AppSingleton.getInstance(getApplicationContext()).getAnimalsToShow();
       paw= getApplicationContext().getResources().getDrawable(R.drawable.ic_pets_white_24dp);
        setNavigationViewListener();
@@ -78,7 +81,8 @@ public class MyAnimalsActivity extends AppCompatActivity implements NavigationVi
         catsview= findViewById(R.id.myLinearCats);
         if(AppSingleton.getInstance(getApplicationContext()).getUser()!=null)
         getCats();
-        else sendToLogin();
+        else
+            sendToLogin();
 
     }
 
@@ -104,26 +108,35 @@ public class MyAnimalsActivity extends AppCompatActivity implements NavigationVi
                     System.out.println(obj.toString());
                     int animalNo=Integer.parseInt(obj.getString("nr_animals"));
                     System.out.println(animalNo);
+                    if(animalNo == 0 ) {
+                        TextView noAnimals=new TextView(MyAnimalsActivity.this);
+                        noAnimals.setText("Niciun animal inregistrat.");
+                        noAnimals.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
+                        catsview.addView(noAnimals);
+                        return;}
                     final JSONArray animals=obj.getJSONArray("animals");
-
+//
                     for(int i=0;i<animalNo;i++)
                     {
                         Moshi moshi = new Moshi.Builder().build();
                         JsonAdapter<Animal> adapter = moshi.adapter(Animal.class);
-                        Animal a =adapter.fromJson(animals.get(i).toString());
+                        final Animal a =adapter.fromJson(animals.get(i).toString());
 //                        if(i==0){
                         System.out.println(animals.get(i).toString());
                         ImageView img=new ImageView(MyAnimalsActivity.this);
                        // Picasso.get().load("https://i.imgur.com/XAuRrVz.jpg").into(img);
 
-                        String img64 = animals.getJSONObject(i).getString("image");
+                        String img64 = a.getImage();
                         System.out.println(img64);
+                        if(img64 == null)
+                            Picasso.get().load("https://i.imgur.com/q52cLwE.png").into(img);
+                        else{
                         String [] parts= img64.split(",");
                         //img64.replace("\\", "");
 
                         byte[] decodedString = Base64.getDecoder().decode(parts[1]);
                         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        img.setImageBitmap(decodedByte);
+                        img.setImageBitmap(decodedByte);}
                         img.setPadding(0,40,0,20);
                         img.setMinimumWidth(600);
                         img.setMinimumHeight(600);
@@ -145,7 +158,9 @@ public class MyAnimalsActivity extends AppCompatActivity implements NavigationVi
                             public void onClick(View v) {
                                 try {
                                     AppSingleton.getInstance(getApplicationContext()).setAnimalPid(animals.getJSONObject(j).getString("PID"));
+                                    AppSingleton.getInstance(getApplicationContext()).setCurrentAnimal(a);
                                     AppSingleton.getInstance(getApplicationContext()).setUser(AppSingleton.getInstance(getApplicationContext()).getUser());
+                                    AppSingleton.getInstance(getApplicationContext()).setAdoptionState(a.getHas_request());
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -157,16 +172,17 @@ public class MyAnimalsActivity extends AppCompatActivity implements NavigationVi
                         viewDetails.setOnClickListener(listenerViewAnimal);
 
                         Integer hasRequest, requestType,requestState;
-                        requestType=Integer.parseInt(a.getRequest_type());
-                        requestState=Integer.parseInt(a.getRequest_state());
+
+
                         hasRequest=a.getHas_request();
-                        System.out.println(hasRequest+ " "+requestType+" "+requestState);
                         Button adoptionState=new Button(MyAnimalsActivity.this);
                         //viewDetails.setBackground(buttonBackground);
                         adoptionState.setTextColor(getResources().getColor(R.color.white));
                         adoptionState.setLayoutParams(new LinearLayout.LayoutParams(500,160));
                         if(hasRequest==1)
                         {
+                            requestState=Integer.parseInt(a.getRequest_state());
+                            requestType=Integer.parseInt(a.getRequest_type());
                             if(requestType==0)
                             {if(requestState==1)
                                      adoptionState.setText("Cererea adopție acceptată");
@@ -185,11 +201,12 @@ public class MyAnimalsActivity extends AppCompatActivity implements NavigationVi
                             }
 
                         }
-                        else
+                        else {
                             adoptionState.setText("Dă spre adopție");
+                            adoptionState.setOnClickListener(listenerViewAnimal);
+                        }
 
                         adoptionState.setCompoundDrawables(paw,null,paw,null);
-
 
 
                         name.setText(animals.getJSONObject(i).getString("name"));
@@ -230,19 +247,44 @@ public class MyAnimalsActivity extends AppCompatActivity implements NavigationVi
         {
             @Override
             protected Map<String,String> getParams(){
-                Map<String,String> params=new HashMap<>();
-                System.out.println(AppSingleton.getInstance(getApplicationContext()).getUser().toString());
-                params.put("security_code", "8981ASDGHJ22123");
-                params.put("request_type","1");
-                params.put("UID", AppSingleton.getInstance(getApplicationContext()).getUser().getUID());
-                System.out.println(params);
-                return params;
+//                Map<String,String> params=new HashMap<>();
+//                System.out.println(AppSingleton.getInstance(getApplicationContext()).getUser().toString());
+//                params.put("security_code", "8981ASDGHJ22123");
+//                params.put("request_type","1");
+//                params.put("UID", AppSingleton.getInstance(getApplicationContext()).getUser().getUID());
+//                System.out.println(params);
+//                return params;
+                return new GetAnimalsCustomRequest(AppSingleton
+                        .getInstance(getApplicationContext()).getUser().getUID()).map();
             }
 
         };
 
         AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,"getCats");
     }
+//    private View.OnClickListener animalRequestListener= new View.OnClickListener(){
+//        @Override
+//        public void onClick(View v)  {
+//            StringRequest strReq = new StringRequest(
+//                    Request.Method.POST, "https://secondhome.fragmentedpixel.com/server/animalrequest.php/", new Response.Listener<String>() {
+//                @Override
+//                public void onResponse(String response) {
+//                    Log.d("LoginDataSource", "Register Response: " + response);
+//                }
+//
+//            }, new Response.ErrorListener() {
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//                    Log.e("LoginActivity", "Login error: " + error.getMessage());
+//                }
+//            }) {
+//                @Override
+//                protected Map<String, String> getParams() {
+//
+//                }
+//            };
+//        }
+//    };
     private void setNavigationViewListener() {
         System.out.println("setting navigation listener");
         navigationView = findViewById(R.id.mymenu);

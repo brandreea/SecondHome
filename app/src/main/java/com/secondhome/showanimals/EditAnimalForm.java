@@ -15,7 +15,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.secondhome.R;
-import com.secondhome.login.AppSingleton;
+import com.secondhome.data.model.AppSingleton;
+import com.secondhome.data.model.request.body.EditAnimalFormRequest;
 import com.secondhome.mains.Main2LoggedInActivity;
 
 import org.json.JSONException;
@@ -51,11 +52,12 @@ public class EditAnimalForm extends AppCompatActivity {
         View.OnClickListener listenerAddAnimal=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addAnimal(name.getText().toString(),
+                editAnimal( new EditAnimalFormRequest(name.getText().toString(),
+                        description.getText().toString(),
                         age.getText().toString(),
                         breed.getText().toString(),
-                        description.getText().toString(),
-                        AppSingleton.getInstance(getApplicationContext()).getUser().getUID());
+                        AppSingleton.getInstance(getApplicationContext()).getUser().getUID(),
+                        AppSingleton.getInstance(getApplicationContext()).getCurrentAnimal().getPID()));
             }
         };
         submit.setOnClickListener(listenerAddAnimal);
@@ -63,22 +65,26 @@ public class EditAnimalForm extends AppCompatActivity {
 
     private void setDescription() {
         description=findViewById(R.id.editAnimalDescription);
+        description.setText(AppSingleton.getInstance(getApplicationContext()).getCurrentAnimal().getDescription());
     }
 
     private void setBreed() {
         breed= findViewById(R.id.editAnimalBreed);
+        breed.setText(AppSingleton.getInstance(getApplicationContext()).getCurrentAnimal().getBreed());
     }
 
     private void setAge() {
         age= findViewById(R.id.editAnimalAge);
+        age.setText(AppSingleton.getInstance(getApplicationContext()).getCurrentAnimal().getBirthdate());
     }
 
     private void setName() {
         name= findViewById(R.id.editAnimalName);
+        name.setText(AppSingleton.getInstance(getApplicationContext()).getCurrentAnimal().getName());
     }
 
 
-    private void addAnimal(final String name, final String age, final String breed, final String description, final String uid) {
+    private void editAnimal(final EditAnimalFormRequest editAnimalFormRequest) {
         System.out.println("Trying to add animal...");
         StringRequest strReq=new StringRequest(
                 Request.Method.POST,
@@ -111,16 +117,7 @@ public class EditAnimalForm extends AppCompatActivity {
         }){
             @Override
             protected Map<String,String> getParams(){
-                Map<String,String> params=new HashMap<>();
-                params.put("pet_name", name);
-                params.put("pet_description", description);
-                params.put("pet_age", age);
-                params.put("pet_breed",breed);
-                params.put("security_code", "8981ASDGHJ22123");
-                params.put("UID",uid);
-                params.put("PID", AppSingleton.getInstance(getApplicationContext()).getCurrentAnimal().getPID());
-                System.out.println(params.toString());
-                return params;
+                return editAnimalFormRequest.map();
             }
         };
         AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,"addanimal");

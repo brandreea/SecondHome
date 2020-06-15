@@ -18,8 +18,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.secondhome.R;
+import com.secondhome.data.model.request.body.AnimalFormRequest;
 import com.secondhome.mains.Main2LoggedInActivity;
-import com.secondhome.login.AppSingleton;
+import com.secondhome.data.model.AppSingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,9 +50,6 @@ public class AddAnimalFormActivity extends AppCompatActivity implements
         setBreed();
         setDescription();
         setSubmit();
-        //set the spinner
-
-        //submit button
 
     }
 
@@ -60,12 +58,13 @@ public class AddAnimalFormActivity extends AppCompatActivity implements
         View.OnClickListener listenerAddAnimal=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addAnimal(name.getText().toString(),
+                addAnimal(new AnimalFormRequest(name.getText().toString(),
                         age.getText().toString(),
+                        cathegory,
                         breed.getText().toString(),
                         description.getText().toString(),
-                        cathegory,
-                        AppSingleton.getInstance(getApplicationContext()).getUser().getUID());
+
+                        AppSingleton.getInstance(getApplicationContext()).getUser().getUID()));
             }
         };
         submit.setOnClickListener(listenerAddAnimal);
@@ -96,7 +95,7 @@ public class AddAnimalFormActivity extends AppCompatActivity implements
         spinner.setOnItemSelectedListener(this);
     }
 
-    private void addAnimal(final String name, final String age, final String breed, final String description, final String cathegory, final String uid) {
+    private void addAnimal(final AnimalFormRequest animalFormRequest) {
         System.out.println("Trying to add animal...");
         StringRequest strReq=new StringRequest(
                 Request.Method.POST,
@@ -129,16 +128,7 @@ public class AddAnimalFormActivity extends AppCompatActivity implements
         }){
             @Override
             protected Map<String,String> getParams(){
-                Map<String,String> params=new HashMap<>();
-                params.put("pet_name", name);
-                params.put("pet_description", description);
-                params.put("pet_type", cathegory);
-                params.put("pet_age", age);
-                params.put("pet_breed",breed);
-                params.put("security_code", "8981ASDGHJ22123");
-                params.put("UID",uid);
-                System.out.println(params.toString());
-                return params;
+               return animalFormRequest.map();
             }
         };
         AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,"addanimal");

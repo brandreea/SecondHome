@@ -15,7 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.secondhome.R;
-import com.secondhome.login.AppSingleton;
+import com.secondhome.data.model.AppSingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +26,7 @@ import java.util.Map;
 public class WriteUs extends AppCompatActivity {
     private TextView from, subject, message;
     private Button send;
-    private static final String UrlForSendEmail="http://secondhome.fragmentedpixel.com/server/sendemail.php/";
+    private static final String UrlForSendEmail="https://secondhome.fragmentedpixel.com/server/sendemail.php/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

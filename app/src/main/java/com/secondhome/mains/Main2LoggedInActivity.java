@@ -19,8 +19,9 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.secondhome.R;
 import com.secondhome.contact.ContactActivity;
+import com.secondhome.locations.ListOfLocations;
 import com.secondhome.locations.LocationActvity;
-import com.secondhome.login.AppSingleton;
+import com.secondhome.data.model.AppSingleton;
 import com.secondhome.login.LoginActivity;
 import com.secondhome.login.MyProfileActivity;
 import com.secondhome.showanimals.AddAnimalFormActivity;
@@ -143,7 +144,7 @@ public class Main2LoggedInActivity extends AppCompatActivity implements Navigati
                 startActivity(intent);
                 break;
             case R.id.db10:
-                intent=new Intent(Main2LoggedInActivity.this, LocationActvity.class);
+                intent=new Intent(Main2LoggedInActivity.this, ListOfLocations.class);
                 startActivity(intent);
                 break;
             case R.id.db11:

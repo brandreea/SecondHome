@@ -1,22 +1,23 @@
 package com.secondhome.mains;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.android.material.navigation.NavigationView;
-import com.secondhome.R;
 import com.secondhome.contact.ContactActivity;
+import com.secondhome.data.model.AppSingleton;
+import com.secondhome.data.model.Menu;
+import com.secondhome.R;
 import com.secondhome.locations.ListOfLocations;
-import com.secondhome.login.AppSingleton;
 import com.secondhome.login.LoginActivity;
 import com.secondhome.login.MyProfileActivity;
 import com.secondhome.login.RegisterActivity;
@@ -25,24 +26,22 @@ import com.secondhome.showanimals.MyAnimalsActivity;
 
 import org.jetbrains.annotations.NotNull;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Button login,register;
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         setNavigationViewListener();
-        mDrawer=findViewById(R.id.mainmenu);
-        mToggle= new ActionBarDrawerToggle(this, mDrawer,R.string.open,R.string.close);
+        mDrawer = findViewById(R.id.mainmenu);
+        mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open, R.string.close);
 
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         login =findViewById(R.id.button5);
         register= findViewById(R.id.button6);
 

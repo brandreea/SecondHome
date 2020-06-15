@@ -7,6 +7,7 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
 
 import com.secondhome.R;
+import com.secondhome.data.model.request.RegisterRequest;
 
 
 import org.junit.After;
@@ -36,12 +37,12 @@ public class RegisterActivityTest {
     }
     @Test
     public void whenPasswordTooShortReturnNeg1(){
-        assertEquals(-1,registerActivity.areValid("addff","asdrr","ssee","gg"));
+        assertEquals(-1,registerActivity.areValid(new RegisterRequest("addff","asdrr","ssee","gg")));
 
     }
     @Test
     public void whenCredentialsTooShortReturnNeg2(){
-        assertEquals(-2,registerActivity.areValid("","asdrr","ssee","gggggg"));
+        assertEquals(-2,registerActivity.areValid(new RegisterRequest("","asdrr","ssee","gggggg")));
     }
     @After
     public void tearDown(){

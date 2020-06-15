@@ -24,6 +24,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.secondhome.data.model.PetTypes;
+import com.secondhome.data.model.request.body.GetAnimalRequest;
+import com.secondhome.data.model.request.body.GetAnimalsRequest;
+import com.secondhome.locations.ListOfLocations;
 import com.secondhome.login.MyProfileActivity;
 import com.secondhome.R;
 import com.secondhome.contact.ContactActivity;
@@ -31,11 +35,12 @@ import com.secondhome.data.model.Animal;
 import com.secondhome.locations.LocationActvity;
 import com.secondhome.mains.Main2LoggedInActivity;
 import com.secondhome.mains.MainActivity;
-import com.secondhome.login.AppSingleton;
+import com.secondhome.data.model.AppSingleton;
 import com.secondhome.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +57,7 @@ public class AnimalProfileActivity extends AppCompatActivity implements Navigati
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mToggle;
     private NavigationView navigationView;
-    private Button edit,delete;
+    private Button edit,delete,adopt;
     private static final String UrlForAnimal="https://secondhome.fragmentedpixel.com/server/getanimalextended.php/";
 
     @Override
@@ -95,20 +100,16 @@ public class AnimalProfileActivity extends AppCompatActivity implements Navigati
                         Moshi moshi = new Moshi.Builder().build();
                         JsonAdapter<Animal> adapter = moshi.adapter(Animal.class);
                         final Animal a =adapter.fromJson(obj.toString());
-//                        System.out.println(a.toString());
-                        //ImageView img=new ImageView(AnimalProfileActivity.this);
-
-//                        Picasso.get().load("https://i.imgur.com/XAuRrVz.jpg").into(profilePic);
-//                        img.setPadding(0,20,0,20);
                         String img64 = a.getImage();
                         System.out.println(img64);
+                        if(img64 == null)
+                            Picasso.get().load("https://i.imgur.com/q52cLwE.png").into(profilePic);
+                        else{
                         String [] parts= img64.split(",");
-                        //img64.replace("\\", "");
-
                         byte[] decodedString = Base64.getDecoder().decode(parts[1]);
-//                        System.out.println(decodedString);
                         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        profilePic.setImageBitmap(decodedByte);
+                        profilePic.setImageBitmap(decodedByte);}
+
                         profilePic.setPadding(0,40,0,20);
                         profilePic.setMinimumWidth(600);
                         profilePic.setMinimumHeight(600);
@@ -118,17 +119,10 @@ public class AnimalProfileActivity extends AppCompatActivity implements Navigati
                         description.setText(a.getDescription());
                         name.setText(a.getName());
                         breed.setText(a.getBreed());
-                        type.setText(a.getType());
-                        View.OnClickListener listenerEdit=new View.OnClickListener() {
-                       @Override
-                       public void onClick(View v) {
-//                            AppSingleton.getInstance(getApplicationContext()).setCurrentAnimal(a);
-//                            Intent intent=new Intent(AnimalProfileActivity.this,EditAnimalForm.class);
-//                            startActivity(intent);
-                        }
-                    };
-                        edit.setOnClickListener(listenerEdit);
-                        edit.setText("Adoptă");
+                        type.setText(PetTypes.getInstance().getPetType(a.getType()));
+
+                        adopt.setOnClickListener(listenerAdopt);
+                        adopt.setText("Adoptă");
 
 
                 } catch(JSONException e)
@@ -150,20 +144,24 @@ public class AnimalProfileActivity extends AppCompatActivity implements Navigati
         {
             @Override
             protected Map<String,String> getParams(){
-                Map<String,String> params=new HashMap<>();
-                params.put("security_code", "8981ASDGHJ22123");
-                params.put("PID", AppSingleton.getInstance(getApplicationContext()).getAnimalPid());
-            if(AppSingleton.getInstance(getApplicationContext()).getUser()!=null)
-                     params.put("UID", AppSingleton.getInstance(getApplicationContext()).getUser().getUID());
-             params.put("UID","-1");
-                return params;
+                String pid = AppSingleton.getInstance(getApplicationContext()).getAnimalPid();
+                String uid;
+                if(AppSingleton.getInstance(getApplicationContext()).getUser()!=null)
+                    uid= AppSingleton.getInstance(getApplicationContext()).getUser().getUID();
+                else uid ="-1";
+                return new GetAnimalRequest(pid,uid).map();
             }
 
         };
 
         AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,"getAnimal");
     }
+    View.OnClickListener listenerAdopt=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
 
+        }
+    };
     private void loadViews() {
         profilePic= findViewById(R.id.profilePicAnimal);
         name= findViewById(R.id.animalName);
@@ -174,6 +172,9 @@ public class AnimalProfileActivity extends AppCompatActivity implements Navigati
         edit= findViewById(R.id.editAnimal);
         delete= findViewById(R.id.deleteAnimal);
         delete.setVisibility(View.GONE);
+        edit.setVisibility(View.GONE);
+        adopt= findViewById(R.id.adopt);
+        adopt.setVisibility(View.GONE);
     }
 
     private void setNavigationViewListener() {
@@ -245,7 +246,7 @@ public class AnimalProfileActivity extends AppCompatActivity implements Navigati
                 startActivity(intent);
                 break;
             case R.id.db10:
-                intent=new Intent(AnimalProfileActivity.this, LocationActvity.class);
+                intent=new Intent(AnimalProfileActivity.this, ListOfLocations.class);
                 startActivity(intent);
                 break;
             case R.id.db11:
@@ -254,7 +255,6 @@ public class AnimalProfileActivity extends AppCompatActivity implements Navigati
                 break;
 
         }
-        //close navigation drawer
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }

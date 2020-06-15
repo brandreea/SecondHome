@@ -13,7 +13,9 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.secondhome.data.model.AppSingleton;
 import com.secondhome.data.model.LoggedInUser;
+import com.secondhome.data.model.request.body.LoginRequestBody;
 import com.secondhome.mains.Main2LoggedInActivity;
 import com.secondhome.R;
 
@@ -44,13 +46,14 @@ public class LoginActivity extends AppCompatActivity {
                                      @Override
                                      public void onClick(View v) {
                                          System.out.println("onClick is fine");
-                                         loginUser(loginInputEmail.getText().toString(), loginInputPassword.getText().toString());
+                                         loginUser(new LoginRequestBody(loginInputEmail.getText().toString()
+                                                 , loginInputPassword.getText().toString()));
                                      }
                                  }
 
         );
       }
-      protected void loginUser(final String email, final String password)
+      protected void loginUser(final LoginRequestBody loginRequest)
       {
           System.out.println("Trying to log in");
           StringRequest strReq= new StringRequest(
@@ -60,26 +63,15 @@ public class LoginActivity extends AppCompatActivity {
               {
                   Log.d("LoginDataSource", "Register Response: "+ response);
                   try{
-                      System.out.println("Trying to request Object");
                       JSONObject obj=new JSONObject(response);
-                      System.out.println(obj.toString());
-
-                          System.out.println("here");
                           String userName= obj.getString("user-firstname");
                           String UID=obj.getString("UID");
-                          System.out.println(obj);
-                          System.out.println("user");
-
-                          user=new LoggedInUser(UID,email,userName);
+                          user=new LoggedInUser(UID,loginRequest.getUserEmail(),userName);
                           AppSingleton.getInstance(getApplicationContext()).setUser(user);
                           Intent intent=new Intent(LoginActivity.this, Main2LoggedInActivity.class);
                           System.out.println("We want to add user");
                           intent.putExtra("username", userName);
                           startActivity(intent);
-//                      }
-//                      else{
-//                          String errorMsg=obj.getString("error_msg");
-//                          Toast.makeText(getApplicationContext(),errorMsg,Toast.LENGTH_LONG).show();
 //                      }
 
                   } catch(JSONException e)
@@ -100,15 +92,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             protected Map<String,String> getParams(){
                 Map<String,String> params=new HashMap<>();
-                params.put("user-email", email);
-                params.put("user-password", password);
+                params.put("user-email", loginRequest.getUserEmail());
+                params.put("user-password", loginRequest.getPassword());
                 return params;
             }
 
           };
 
           AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,"login");
-
 
       }
 }

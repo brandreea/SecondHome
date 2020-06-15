@@ -23,7 +23,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.secondhome.R;
 import com.secondhome.contact.ContactActivity;
+import com.secondhome.data.model.AppSingleton;
 import com.secondhome.data.model.User;
+import com.secondhome.locations.ListOfLocations;
 import com.secondhome.locations.LocationActvity;
 import com.secondhome.mains.Main2LoggedInActivity;
 import com.secondhome.mains.MainActivity;
@@ -45,7 +47,7 @@ import java.util.Map;
 public class MyProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private ImageView profilePic;
     private TextView name, animalsNo,email;
-    private Button viewMyAnimals,edit;
+    private Button viewMyAnimals;
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mToggle;
     private NavigationView navigationView;
@@ -93,8 +95,10 @@ public class MyProfileActivity extends AppCompatActivity implements NavigationVi
                     System.out.println(animalsNo.toString());
                     System.out.println(name.toString());
  //                   System.out.println(a.toString());
-                    Picasso.get().load("https://i.imgur.com/NPvMl7S.png").into(profilePic);
-                    profilePic.setPadding(0,20,0,20);
+                    Picasso.get().load("https://i.imgur.com/q52cLwE.png").into(profilePic);
+                    profilePic.setPadding(0,40,0,20);
+                    profilePic.setMinimumWidth(600);
+                    profilePic.setMinimumHeight(600);
                     email.setText(a.getUser_email());
                     name.setText(a.getFirst_name()+" "+a.getLast_name());
                     animalsNo.setText(Integer.toString(a.getNr_owned_pets()));
@@ -106,15 +110,7 @@ public class MyProfileActivity extends AppCompatActivity implements NavigationVi
                             startActivity(intent);
                         }
                     };
-                    viewMyAnimals.setOnClickListener(listenerViewAnimal);
-                    View.OnClickListener listenerEdit=new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent=new Intent(MyProfileActivity.this, EditAnimalForm.class);
-                            startActivity(intent);
-                        }
-                    };
-                    edit.setOnClickListener(listenerViewAnimal);
+                   viewMyAnimals.setOnClickListener(listenerViewAnimal);
 
                 } catch(JSONException e)
                 {
@@ -138,7 +134,7 @@ public class MyProfileActivity extends AppCompatActivity implements NavigationVi
             protected Map<String,String> getParams(){
                 Map<String,String> params=new HashMap<String,String>();
                 params.put("security_code", "8981ASDGHJ22123");
-                params.put("UID",AppSingleton.getInstance(getApplicationContext()).getUser().getUID());
+                params.put("UID", AppSingleton.getInstance(getApplicationContext()).getUser().getUID());
                 return params;
             }
 
@@ -153,7 +149,7 @@ public class MyProfileActivity extends AppCompatActivity implements NavigationVi
         email=(TextView) findViewById(R.id.email2);
         animalsNo=(TextView) findViewById(R.id.animalNo2);
         viewMyAnimals= (Button) findViewById(R.id.viewMyAnimals);
-        edit=(Button) findViewById(R.id.editProfile);
+//        edit=(Button) findViewById(R.id.editProfile);
 
     }
 
@@ -226,7 +222,7 @@ public class MyProfileActivity extends AppCompatActivity implements NavigationVi
                 startActivity(intent);
                 break;
             case R.id.db10:
-                intent=new Intent(MyProfileActivity.this, LocationActvity.class);
+                intent=new Intent(MyProfileActivity.this, ListOfLocations.class);
                 startActivity(intent);
                 break;
             case R.id.db11:

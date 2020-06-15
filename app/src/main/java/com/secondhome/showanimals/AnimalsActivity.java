@@ -30,12 +30,15 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.navigation.NavigationView;
 import com.secondhome.R;
 import com.secondhome.contact.ContactActivity;
-import com.secondhome.locations.LocationActvity;
-import com.secondhome.login.AppSingleton;
+import com.secondhome.data.model.request.body.GetAnimalsRequest;
+import com.secondhome.locations.ListOfLocations;
+import com.secondhome.data.model.AppSingleton;
 import com.secondhome.login.LoginActivity;
 import com.secondhome.login.MyProfileActivity;
 import com.secondhome.mains.Main2LoggedInActivity;
 import com.secondhome.mains.MainActivity;
+import com.squareup.picasso.Picasso;
+
 import java.util.Base64;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,11 +76,11 @@ public class AnimalsActivity extends AppCompatActivity implements NavigationView
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         catsview= findViewById(R.id.linearCats);
-        getCats();
+        getAnimals();
 
     }
 
-    private void getCats(){
+    private void getAnimals(){
         System.out.println("Trying request animals");
         StringRequest strReq= new StringRequest(
                 Request.Method.POST, UrlForLogin, new Response.Listener<String>() {
@@ -102,18 +105,18 @@ public class AnimalsActivity extends AppCompatActivity implements NavigationView
                         ImageView img=new ImageView(AnimalsActivity.this);
 
                         //TODO  this is ok for temporary
-//                        Picasso.get().load("https://i.imgur.com/XAuRrVz.jpg").into(img);
-//                        img.setPadding(0,60,0,0);
 
                         String img64 = animals.getJSONObject(i).getString("image");
                         System.out.println(img64);
+                        if(img64 == null)
+                            Picasso.get().load("https://i.imgur.com/q52cLwE.png").into(img);
+                        else{
                         String [] parts= img64.split(",");
-                        //img64.replace("\\", "");
 
                         byte[] decodedString = Base64.getDecoder().decode(parts[1]);
 //                        System.out.println(decodedString);
                         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        img.setImageBitmap(decodedByte);
+                        img.setImageBitmap(decodedByte);}
                         img.setPadding(0,40,0,20);
                         img.setMinimumWidth(600);
                         img.setMinimumHeight(600);
@@ -147,7 +150,6 @@ public class AnimalsActivity extends AppCompatActivity implements NavigationView
                         name.setText(animals.getJSONObject(i).getString("name"));
                         name.setTextSize(25);
                         name.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
-                        //name.setPadding(0,60,0,0);
 
                         description.setText("Vârstă:"+animals.getJSONObject(i).getString("birthdate"));
                         description.setTextSize(20);
@@ -176,16 +178,12 @@ public class AnimalsActivity extends AppCompatActivity implements NavigationView
         {
             @Override
             protected Map<String,String> getParams(){
-                Map<String,String> params=new HashMap<>();
-                params.put("security_code", "8981ASDGHJ22123");
-                params.put("request_type","0");
-                params.put("pet_type", animalType);
-                return params;
+                return new GetAnimalsRequest(animalType).map();
             }
 
         };
 
-        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,"getCats");
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,"getAnimals");
     }
     private void setNavigationViewListener() {
         System.out.println("setting navigation listener");
@@ -255,7 +253,7 @@ public class AnimalsActivity extends AppCompatActivity implements NavigationView
                 startActivity(intent);
                 break;
             case R.id.db10:
-                intent=new Intent(AnimalsActivity.this, LocationActvity.class);
+                intent=new Intent(AnimalsActivity.this, ListOfLocations.class);
                 startActivity(intent);
                 break;
             case R.id.db11:

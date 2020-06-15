@@ -19,7 +19,7 @@ import com.secondhome.mains.Main2LoggedInActivity;
 import com.secondhome.mains.MainActivity;
 import com.secondhome.showanimals.AnimalsActivity;
 import com.secondhome.showanimals.MyAnimalsActivity;
-import com.secondhome.login.AppSingleton;
+import com.secondhome.data.model.AppSingleton;
 
 import com.google.android.material.navigation.NavigationView;
 

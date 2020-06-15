@@ -25,6 +25,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.secondhome.data.model.PetTypes;
+import com.secondhome.data.model.request.body.AnimalRequest;
+import com.secondhome.locations.ListOfLocations;
 import com.secondhome.login.MyProfileActivity;
 import com.secondhome.R;
 import com.secondhome.contact.ContactActivity;
@@ -32,11 +35,12 @@ import com.secondhome.data.model.Animal;
 import com.secondhome.locations.LocationActvity;
 import com.secondhome.mains.Main2LoggedInActivity;
 import com.secondhome.mains.MainActivity;
-import com.secondhome.login.AppSingleton;
+import com.secondhome.data.model.AppSingleton;
 import com.secondhome.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,10 +58,10 @@ public class MyAnimalActivity extends AppCompatActivity implements NavigationVie
     private ActionBarDrawerToggle mToggle;
     private NavigationView navigationView;
     private ActionMenuItem item;
-    private Button edit,delete;
+    private Button edit,delete, adopt;
     private static final String UrlForAnimal="https://secondhome.fragmentedpixel.com/server/getanimalextended.php/";
     private static final String UrlForDeletingAnimal="https://secondhome.fragmentedpixel.com/server/deleteanimal.php/";
-
+    private static final String UrlForAdoptingAnimal="https://secondhome.fragmentedpixel.com/server/animalrequest.php/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +80,11 @@ public class MyAnimalActivity extends AppCompatActivity implements NavigationVie
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //
+        adopt = findViewById(R.id.adopt);
         loadAnimalDetails();
-
+        if(adopt.getText().toString().equals("Da spre adoptie"))
+        adopt.setOnClickListener(adoptListener);
+        else adopt.setEnabled(false);
 
     }
 
@@ -98,20 +105,23 @@ public class MyAnimalActivity extends AppCompatActivity implements NavigationVie
                     Moshi moshi = new Moshi.Builder().build();
                     JsonAdapter<Animal> adapter = moshi.adapter(Animal.class);
                     final Animal a =adapter.fromJson(obj.toString());
-                   System.out.println(a.toString());
+                    System.out.println(a.toString());
                   //ImageView img=new ImageView(AnimalProfileActivity.this);
 //
 ////                        Picasso.get().load("https://i.imgur.com/XAuRrVz.jpg").into(profilePic);
 ////                        img.setPadding(0,20,0,20);
                     String img64 = a.getImage();
                     System.out.println(img64);
+                    if(img64 == null)
+                        Picasso.get().load("https://i.imgur.com/q52cLwE.png").into(profilePic);
+                    else{
                     String [] parts= img64.split(",");
                     //img64.replace("\\", "");
 
                     byte[] decodedString = Base64.getDecoder().decode(parts[1]);
                     System.out.println(decodedString.toString());
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                    profilePic.setImageBitmap(decodedByte);
+                    profilePic.setImageBitmap(decodedByte);}
                     profilePic.setPadding(0,40,0,20);
                     profilePic.setMinimumWidth(600);
                     profilePic.setMinimumHeight(600);
@@ -121,7 +131,7 @@ public class MyAnimalActivity extends AppCompatActivity implements NavigationVie
                     description.setText(a.getDescription());
                     name.setText(a.getName());
                     breed.setText(a.getBreed());
-                    type.setText(a.getType());
+                    type.setText(PetTypes.getInstance().getPetType(a.getType()));
                     View.OnClickListener listenerEdit=new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -132,7 +142,9 @@ public class MyAnimalActivity extends AppCompatActivity implements NavigationVie
                     };
                     edit.setOnClickListener(listenerEdit);
                     delete.setOnClickListener(deleteListener);
-
+                    if(AppSingleton.getInstance(getApplicationContext()).getAdoptionState()>0)
+                    adopt.setText("Cerere de dare spre adoptie");
+                    else adopt.setText("Da spre adoptie.");
 
                 } catch(JSONException e)
                 {
@@ -156,10 +168,10 @@ public class MyAnimalActivity extends AppCompatActivity implements NavigationVie
                 Map<String,String> params=new HashMap<String,String>();
                 params.put("security_code", "8981ASDGHJ22123");
                 params.put("PID", AppSingleton.getInstance(getApplicationContext()).getAnimalPid());
-                System.out.println(AppSingleton.getInstance(getApplicationContext()).getUser());
                 if(AppSingleton.getInstance(getApplicationContext()).getUser()!=null)
                     params.put("UID", AppSingleton.getInstance(getApplicationContext()).getUser().getUID().toString());
                 else params.put("UID","-1");
+
                 System.out.println(params.toString());
                 return params;
             }
@@ -168,7 +180,49 @@ public class MyAnimalActivity extends AppCompatActivity implements NavigationVie
 
         AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,"getAnimal");
     }
+    private View.OnClickListener adoptListener =new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View v){
+            StringRequest strReq= new StringRequest(
+                    Request.Method.POST,
+                    UrlForAdoptingAnimal,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d("AnimalProfile", "Delete Response: "+ response.toString());
+                            Toast.makeText(getApplicationContext(),"Animaluțul a fost dat spre adoptie cu succes",Toast.LENGTH_LONG).show();
+                            Intent intent=new Intent(MyAnimalActivity.this,MyAnimalsActivity.class);
+                            startActivity(intent);
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("AnimalProfileActivity", " error: "+ error.getMessage());
+                            Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG);
+                        }
+                    }){
+                @Override
+                protected Map<String,String> getParams(){
+                    return new AnimalRequest(
+                            AppSingleton.getInstance(getApplicationContext()).getAnimalPid(),
+                            AppSingleton.getInstance(getApplicationContext()).getUser().getUID().toString(),
+                            "0").map();
+//                    Map<String,String> params= new HashMap<>();
+//                    params.put("security_code", "8981ASDGHJ22123");
+//                    System.out.println(AppSingleton.getInstance(getApplicationContext()).getUser());
+//                    params.put("UID",AppSingleton.getInstance(getApplicationContext()).getUser().getUID().toString());
+//                    params.put("PID", AppSingleton.getInstance(getApplicationContext()).getAnimalPid());
+//                    params.put("request_type","0");
+//                    System.out.println(params.toString());
 
+//                    return params;
+                }
+            };
+            AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,"deleteAnimal");
+        }
+    };
     private void loadViews() {
         profilePic=(ImageView) findViewById(R.id.profilePicAnimal);
         name=(TextView) findViewById(R.id.animalName);
@@ -205,13 +259,15 @@ public class MyAnimalActivity extends AppCompatActivity implements NavigationVie
             }){
                 @Override
                 protected Map<String,String> getParams(){
-                    Map<String,String> params= new HashMap<>();
-                    params.put("security_code", "8981ASDGHJ22123");
-                    System.out.println(AppSingleton.getInstance(getApplicationContext()).getUser());
-                    params.put("UID",AppSingleton.getInstance(getApplicationContext()).getUser().getUID().toString());
-                    params.put("PID", AppSingleton.getInstance(getApplicationContext()).getAnimalPid());
-                    System.out.println(params.toString());
-                    return params;
+//                    Map<String,String> params= new HashMap<>();
+//                    params.put("security_code", "8981ASDGHJ22123");
+//                    System.out.println(AppSingleton.getInstance(getApplicationContext()).getUser());
+//                    params.put("UID",AppSingleton.getInstance(getApplicationContext()).getUser().getUID().toString());
+//                    params.put("PID", AppSingleton.getInstance(getApplicationContext()).getAnimalPid());
+//                    System.out.println(params.toString());
+//                    return params;
+                    return new AnimalRequest(AppSingleton.getInstance(getApplicationContext()).getAnimalPid(),
+                            AppSingleton.getInstance(getApplicationContext()).getUser().getUID().toString()).map();
                 }
             };
             AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,"deleteAnimal");
@@ -287,7 +343,7 @@ public class MyAnimalActivity extends AppCompatActivity implements NavigationVie
                 startActivity(intent);
                 break;
             case R.id.db10:
-                intent=new Intent(MyAnimalActivity.this, LocationActvity.class);
+                intent=new Intent(MyAnimalActivity.this, ListOfLocations.class);
                 startActivity(intent);
                 break;
             case R.id.db11:
