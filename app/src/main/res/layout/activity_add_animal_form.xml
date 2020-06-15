@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".showanimals.AddAnimalFormActivity">
+
+    <TextView
+        android:id="@+id/titAnimal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/dancingscript"
+        android:text="Adauga un animalut"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <EditText
+        android:id="@+id/addAnimalName"
+        android:layout_width="308dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="53dp"
+        android:ems="10"
+        android:hint="Nume"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titAnimal" />
+
+    <Spinner
+        android:id="@+id/animalCathegorySpinner"
+        android:layout_width="309dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        android:text="Categorie"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addAnimalName" />
+
+    <EditText
+        android:id="@+id/addAnimalAge"
+        android:layout_width="308dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Vârsta"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/animalCathegorySpinner" />
+
+    <EditText
+        android:id="@+id/addAnimalBreed"
+        android:layout_width="309dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Rasă"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addAnimalAge" />
+
+    <EditText
+        android:id="@+id/addAnimalDescription"
+        android:layout_width="308dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Descriere animăluț"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addAnimalBreed" />
+
+    <Button
+        android:id="@+id/addAnimalSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="472dp"
+        android:background="@drawable/btn_shape_round_green"
+        android:textColor="@color/white"
+        android:text="Adaugă"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

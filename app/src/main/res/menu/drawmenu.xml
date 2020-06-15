@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/db"
+        android:title="Home"
+        android:icon="@drawable/ic_home_black_24dp"
+        />
+    <item
+        android:id="@+id/db9"
+        android:title="Profil"
+        android:icon="@drawable/ic_person_black_24dp" />
+    <item
+        android:id="@+id/db0"
+        android:title="Toate animalele"
+        android:icon="@drawable/ic_paw" />
+    <item
+        android:id="@+id/db11"
+        android:title="Animalele mele"
+        android:icon="@drawable/ic_paw" />
+    <group>
+        <item
+        android:id="@+id/db1"
+        android:title="Pisici"
+        android:icon="@drawable/ic_black_cat" />
+        <item
+            android:id="@+id/db2"
+            android:title="Câini"
+            android:icon="@drawable/ic_dog" />
+        <item
+            android:id="@+id/db3"
+            android:title="Rozătoare"
+            android:icon="@drawable/ic_rabbit" />
+        <item
+            android:id="@+id/db4"
+            android:title="Reptile"
+            android:icon="@drawable/ic_snake" />
+        <item
+            android:id="@+id/db5"
+            android:title="Păsări"
+            android:icon="@drawable/ic_parrot" />
+        <item
+            android:id="@+id/db6"
+            android:title="Acvatice"
+            android:icon="@drawable/ic_fish" />
+    </group>
+    <item
+        android:id="@+id/db8"
+        android:title="Contact"
+        android:icon="@drawable/ic_phone_black_24dp" />
+    <item
+        android:id="@+id/db10"
+        android:title="Locații"
+        android:icon="@drawable/ic_location_on_black_24dp" />
+</menu>

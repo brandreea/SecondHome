@@ -1,0 +1,45 @@
+<resources>
+    <string-array name="animal_cathegory_array">
+        <item>Toate animalele</item>
+        <item>Pisici</item>
+        <item>Câini</item>
+        <item>Rozătoare</item>
+        <item>Reptile</item>
+        <item>Păsări</item>
+        <item>Acvatice</item>
+    </string-array>
+    <string name="aboutus">Despre noi</string>
+    <string name="aboutusContent">Se spune că adesea cei mai buni prieteni ai omului au 4 picioare. Din acest motiv, ne dorim să oferim tovarășilor noștri, mai mult sau mai puțin blănoși, cu sânge rece sau cu pene, cel mai de preț cadou: un cămin călduros și primitor alături de oameni iubitori.
+        SecodHome este un proiect ce își propune să vină în sprijinul sufletelor neajutorate și, în plus, și a viitorilor sau actualilor lor stăpâni, printr-o platformă online ce pune la dispoziție o gamă de servicii pentru toți iubitorii de animale.
+        Proiectul a luat naștere la inițiativa fondatoarei Bianca Pascu, care și-a materializat ideea cu ajutorul celor doi vizionari: Vlad și Andreea. Împreună, au pus cap la cap bazele unei companii ce nu doar că facilitează adopția, prin re-homing, ci și oferă cazare pentru animalele a căror stăpâni sunt temporar plecați din localitate.
+        Bianca:„ Lipsa unei astfel de platforme în viata mea de zi cu zi m-a împins să îmi doresc să înfintez un loc unde să pot să îmi las animalul când merg într-o vacanță sau, în cazul unei situații neprevăzute, să pot să îi găsesc animalului meu un cămin nou.”
+        Vlad:„Îmi doresc ca proiectul nostru să constituie un serviciu în primul rând pntru animale: să reducem rata abandonului și să reușim să găsim stăpâni alături de care să ducă o viață fericită cât mai multe dintre ele. ”
+        Andreea: „Este păcat că atât de multe animale ajung să fie abandonate din cauză că oamenii nu au timp să se ocupe de găsirea unui nou cămin pentru ele. Prin această platformă sper ca acest aspect să nu mai constituie un impediment în găsirea unui nou stăpân, iar posesorii de animale să vadă din ce în ce mai puțin abandonul ca pe o opțiune.”
+        Astfel, a luat naștere lanțul de adăposturi la fel de prezent în online, precum și în toată țara. Acompaniat de o echipă energică, gata să răspundă la întrebări și să ofere ajutorul necesar, SecondHome creează o experiență unică în România, atât cu privire la procesul de re-homing, cât și pentru cazarea animalelor.
+Tu ți-ai găsit tovarășul patruped?
+</string>
+
+    <string name="intro">"Se spune că adesea cei mai buni prieteni ai omului au 4 picioare. Din acest motiv, ne dorim să oferim tovarășilor noștri, mai mult sau mai puțin blănoși, cu sânge rece sau cu pene, cel mai de preț cadou: un cămin călduros și primitor alături de oameni iubitori."</string>
+    <string name="aboutUsSecond">SecondHome este un proiect ce își propune să vină în sprijinul sufletelor neajutorate și, în plus, și a viitorilor sau actualilor lor stăpâni, printr-o platformă online ce pune la dispoziție o gamă de servicii pentru toți iubitorii de animale.</string>
+    <string name="aboutUsThird">"Proiectul a luat naștere la inițiativa fondatoarei Bianca Pascu, care și-a materializat ideea cu ajutorul celor doi vizionari: Vlad și Andreea. Împreună, au pus cap la cap bazele unei companii ce nu doar că facilitează adopția, prin re-homing, ci și oferă cazare pentru animalele a căror stăpâni sunt temporar plecați din localitate.</string>
+    <string name="quoteBianca">Bianca:„ Lipsa unei astfel de platforme în viata mea de zi cu zi m-a împins să îmi doresc să înfintez un loc unde să pot să îmi las animalul când merg într-o vacanță sau, în cazul unei situații neprevăzute, să pot să îi găsesc animalului meu un cămin nou.”</string>
+    <string name="quoteVlad">Vlad:„Îmi doresc ca proiectul nostru să constituie un serviciu în primul rând pntru animale: să reducem rata abandonului și să reușim să găsim stăpâni alături de care să ducă o viață fericită cât mai multe dintre ele. ”</string>
+    <string name="quoteAndreea">Andreea:„Este păcat că atât de multe animale ajung să fie abandonate din cauză că oamenii nu au timp să se ocupe de găsirea unui nou cămin pentru ele. Prin această platformă sper ca acest aspect să nu mai constituie un impediment în găsirea unui nou stăpân, iar posesorii de animale să vadă din ce în ce mai puțin abandonul ca pe o opțiune.”</string>
+    <string name="aboutUsEnding">Astfel, a luat naștere lanțul de adăposturi la fel de prezent în online, precum și în toată țara. Acompaniat de o echipă energică, gata să răspundă la întrebări și să ofere ajutorul necesar, SecondHome creează o experiență unică în România, atât cu privire la procesul de re-homing, cât și pentru cazarea animalelor.</string>
+    <string name="facilities">Facilitati</string>
+    <string name="facilitiesContent">Vivamus rhoncus nisl sed venenatis luctus. Sed condimentum risus ut tortor feugiat laoreet. Suspendisse potenti. Donec et finibus sem, ut commodo lectus. Cras eget neque dignissim, placerat orci interdum, venenatis odio. Nulla turpis elit, consequat eu eros ac, consectetur fringilla urna. Duis gravida ex pulvinar mauris ornare, eget porttitor enim vulputate. Mauris hendrerit, massa nec aliquam cursus, ex elit euismod lorem, vehicula rhoncus nisl dui sit amet eros. Nulla turpis lorem, dignissim a sapien eget, ultrices venenatis dolor. Curabitur vel turpis at magna elementum hendrerit vel id dui. Curabitur a ex ullamcorper, ornare velit vel, tincidunt ipsum.</string>
+    <string name="achievements">Realizari</string>
+    <string name="achievementsContent">Cras ut ipsum ornare, aliquam ipsum non, posuere elit. In hac habitasse platea dictumst. Aenean elementum leo augue, id fermentum risus efficitur vel. Nulla iaculis malesuada scelerisque. Praesent vel ipsum felis. Ut molestie, purus aliquam placerat sollicitudin, mi ligula euismod neque, non bibendum nibh neque et erat. Etiam dignissim aliquam ligula, aliquet feugiat nibh rhoncus ut. Aliquam efficitur lacinia lacinia. Morbi ac molestie lectus, vitae hendrerit nisl. Nullam metus odio, malesuada in vehicula at, consectetur nec justo. Quisque suscipit odio velit, at accumsan urna vestibulum a. Proin dictum, urna ut varius consectetur, sapien justo porta lectus, at mollis nisi orci et nulla. Donec pellentesque tortor vel nisl commodo ullamcorper. Donec varius massa at semper posuere. Integer finibus orci vitae vehicula placerat.</string>
+    <string name="app_name">SecondHome</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+</resources>
