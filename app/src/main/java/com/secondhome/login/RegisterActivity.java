@@ -38,23 +38,22 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
         signupInputFirstName = findViewById(R.id.firstName);
-       signupInputLastName=  findViewById(R.id.lastName);
+        signupInputLastName=  findViewById(R.id.lastName);
 
-       signupInputEmail =  findViewById(R.id.emailRegister);
-       signupInputPassword = findViewById(R.id.passwordRegister);
-       signupInputSecondPassword= findViewById((R.id.passwordConfirmationRegister));
-       btnSignUp =  findViewById(R.id.buttonRegisterPage);
-       btnSignUp.setOnClickListener(new View.OnClickListener() {
+        signupInputEmail =  findViewById(R.id.emailRegister);
+        signupInputPassword = findViewById(R.id.passwordRegister);
+        signupInputSecondPassword= findViewById((R.id.passwordConfirmationRegister));
+        btnSignUp =  findViewById(R.id.buttonRegisterPage);
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 submitForm();
             }
-       });
-//
+        });
+
     }
-//
+
     private void submitForm() {
         final RegisterRequest registerRequest= new RegisterRequest(
                 signupInputFirstName.getText().toString(),

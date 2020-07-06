@@ -37,6 +37,7 @@ import com.secondhome.login.LoginActivity;
 import com.secondhome.login.MyProfileActivity;
 import com.secondhome.mains.Main2LoggedInActivity;
 import com.secondhome.mains.MainActivity;
+import com.secondhome.menu.MenuOptionFactory;
 import com.squareup.picasso.Picasso;
 
 import java.util.Base64;
@@ -196,73 +197,8 @@ public class AnimalsActivity extends AppCompatActivity implements NavigationView
         // Handle navigation view item clicks here.
         System.out.println("On navigation selected item");
         System.out.println(AppSingleton.getInstance(getApplicationContext()).getAnimalsToShow());
-        switch (item.getItemId()) {
-
-            case R.id.db0:
-                AppSingleton.getInstance(getApplicationContext()).setAnimalsToShow("0");
-                Intent intent=new Intent(AnimalsActivity.this, AnimalsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db1:
-                AppSingleton.getInstance(getApplicationContext()).setAnimalsToShow("1");
-                intent=new Intent(AnimalsActivity.this, AnimalsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db2:
-                AppSingleton.getInstance(getApplicationContext()).setAnimalsToShow("2");
-                intent=new Intent(AnimalsActivity.this, AnimalsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db3:
-                AppSingleton.getInstance(getApplicationContext()).setAnimalsToShow("3");
-                intent=new Intent(AnimalsActivity.this, AnimalsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db4:
-                AppSingleton.getInstance(getApplicationContext()).setAnimalsToShow("4");
-                intent=new Intent(AnimalsActivity.this, AnimalsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db5:
-                AppSingleton.getInstance(getApplicationContext()).setAnimalsToShow("5");
-                intent=new Intent(AnimalsActivity.this, AnimalsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db6:
-                AppSingleton.getInstance(getApplicationContext()).setAnimalsToShow("6");
-                intent=new Intent(AnimalsActivity.this, AnimalsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db:
-                if(AppSingleton.getInstance(getApplicationContext()).getUser()!=null)
-                {
-                    intent=new Intent(AnimalsActivity.this, Main2LoggedInActivity.class);
-                    intent.putExtra("username", AppSingleton.getInstance(getApplicationContext()).getLoggedInUserName());
-                }
-                else intent=new Intent(AnimalsActivity.this, MainActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db8:
-                intent=new Intent(AnimalsActivity.this, ContactActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db9:
-                if(AppSingleton.getInstance(getApplicationContext()).getUser()!=null)
-                    intent=new Intent(AnimalsActivity.this, MyProfileActivity.class);
-                else intent=new Intent(AnimalsActivity.this, LoginActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db10:
-                intent=new Intent(AnimalsActivity.this, ListOfLocations.class);
-                startActivity(intent);
-                break;
-            case R.id.db11:
-                intent=new Intent(AnimalsActivity.this, MyAnimalsActivity.class);
-                startActivity(intent);
-                break;
-
-        }
-        //close navigation drawer
+        Intent intent = MenuOptionFactory.getIntent(AnimalsActivity.this,item.getItemId());
+        startActivity(intent);
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }

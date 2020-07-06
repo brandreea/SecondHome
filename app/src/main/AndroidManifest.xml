@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".showanimals.MyAnimalActivity"></activity>
+        <activity
+            android:name="com.example.secondhome.MenuActivity"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".showanimals.MyAnimalActivity" />
         <activity android:name=".showanimals.EditAnimalForm" />
         <activity android:name=".login.MyProfileActivity" />
         <activity android:name=".showanimals.AnimalProfileActivity" />
@@ -26,7 +30,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".locations.LocationActvity" />
+        <activity android:name=".locations.LocationActivity" />
         <activity android:name=".contact.WriteUs" />
         <activity android:name=".showanimals.AnimalsActivity" />
         <activity android:name=".contact.AchievmentsActivity" />

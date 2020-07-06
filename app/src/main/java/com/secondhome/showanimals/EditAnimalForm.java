@@ -57,7 +57,7 @@ public class EditAnimalForm extends AppCompatActivity {
                         age.getText().toString(),
                         breed.getText().toString(),
                         AppSingleton.getInstance(getApplicationContext()).getUser().getUID(),
-                        AppSingleton.getInstance(getApplicationContext()).getCurrentAnimal().getPID()));
+                        AppSingleton.getCurrentAnimal().getPID()));
             }
         };
         submit.setOnClickListener(listenerAddAnimal);
@@ -65,22 +65,22 @@ public class EditAnimalForm extends AppCompatActivity {
 
     private void setDescription() {
         description=findViewById(R.id.editAnimalDescription);
-        description.setText(AppSingleton.getInstance(getApplicationContext()).getCurrentAnimal().getDescription());
+        description.setText(AppSingleton.getCurrentAnimal().getDescription());
     }
 
     private void setBreed() {
         breed= findViewById(R.id.editAnimalBreed);
-        breed.setText(AppSingleton.getInstance(getApplicationContext()).getCurrentAnimal().getBreed());
+        breed.setText(AppSingleton.getCurrentAnimal().getBreed());
     }
 
     private void setAge() {
         age= findViewById(R.id.editAnimalAge);
-        age.setText(AppSingleton.getInstance(getApplicationContext()).getCurrentAnimal().getBirthdate());
+        age.setText(AppSingleton.getCurrentAnimal().getBirthdate());
     }
 
     private void setName() {
         name= findViewById(R.id.editAnimalName);
-        name.setText(AppSingleton.getInstance(getApplicationContext()).getCurrentAnimal().getName());
+        name.setText(AppSingleton.getCurrentAnimal().getName());
     }
 
 

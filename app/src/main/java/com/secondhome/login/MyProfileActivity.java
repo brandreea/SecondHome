@@ -26,11 +26,10 @@ import com.secondhome.contact.ContactActivity;
 import com.secondhome.data.model.AppSingleton;
 import com.secondhome.data.model.User;
 import com.secondhome.locations.ListOfLocations;
-import com.secondhome.locations.LocationActvity;
 import com.secondhome.mains.Main2LoggedInActivity;
 import com.secondhome.mains.MainActivity;
+import com.secondhome.menu.MenuOptionFactory;
 import com.secondhome.showanimals.AnimalsActivity;
-import com.secondhome.showanimals.EditAnimalForm;
 import com.secondhome.showanimals.MyAnimalsActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.moshi.JsonAdapter;
@@ -162,76 +161,10 @@ public class MyProfileActivity extends AppCompatActivity implements NavigationVi
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         System.out.println("On navigation selected item");
         System.out.println(AppSingleton.getInstance(getApplicationContext()).getAnimalsToShow());
-        switch (item.getItemId()) {
-
-            case R.id.db0:
-                AppSingleton.getInstance(getApplicationContext()).setAnimalsToShow("0");
-                Intent intent=new Intent(MyProfileActivity.this, AnimalsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db1:
-                AppSingleton.getInstance(getApplicationContext()).setAnimalsToShow("1");
-                intent=new Intent(MyProfileActivity.this, AnimalsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db2:
-                AppSingleton.getInstance(getApplicationContext()).setAnimalsToShow("2");
-                intent=new Intent(MyProfileActivity.this, AnimalsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db3:
-                AppSingleton.getInstance(getApplicationContext()).setAnimalsToShow("3");
-                intent=new Intent(MyProfileActivity.this, AnimalsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db4:
-                AppSingleton.getInstance(getApplicationContext()).setAnimalsToShow("4");
-                intent=new Intent(MyProfileActivity.this, AnimalsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db5:
-                AppSingleton.getInstance(getApplicationContext()).setAnimalsToShow("5");
-                intent=new Intent(MyProfileActivity.this, AnimalsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db6:
-                AppSingleton.getInstance(getApplicationContext()).setAnimalsToShow("6");
-                intent=new Intent(MyProfileActivity.this, AnimalsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db:
-                if(AppSingleton.getInstance(getApplicationContext()).getUser()!=null)
-                {
-                    intent=new Intent(MyProfileActivity.this, Main2LoggedInActivity.class);
-                    intent.putExtra("username", AppSingleton.getInstance(getApplicationContext()).getLoggedInUserName());
-                }
-                else intent=new Intent(MyProfileActivity.this, MainActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db8:
-                intent=new Intent(MyProfileActivity.this, ContactActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db9:
-                if(AppSingleton.getInstance(getApplicationContext()).getUser()!=null)
-                    intent=new Intent(MyProfileActivity.this, MyProfileActivity.class);
-                else intent=new Intent(MyProfileActivity.this, LoginActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.db10:
-                intent=new Intent(MyProfileActivity.this, ListOfLocations.class);
-                startActivity(intent);
-                break;
-            case R.id.db11:
-                intent=new Intent(MyProfileActivity.this, MyAnimalsActivity.class);
-                startActivity(intent);
-                break;
-
-        }
-        //close navigation drawer
+        Intent intent = MenuOptionFactory.getIntent(MyProfileActivity.this,item.getItemId());
+        startActivity(intent);
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
