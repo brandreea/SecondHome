@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:id="@+id/showLocations"
     android:gravity="center"
-    tools:context=".locations.LocationActivity">
+    tools:context=".activities.locations.LocationActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,7 +1,0 @@
-listintermnr([],[]).
-listintermnr([H1|T1],[H1|T2]):- number(H1),listintermnr(T1,T2).
-listintermnr([H1|T1],[Lista|T2]):- not(number(H1)),creeazalista([H1|T1],Lista,Creata),listintermnr(Creata,T2).
-
-creeazalista([],[],[]).
-creeazalista([H1|T1],[],[H1|T1]):- number(H1).
-creeazalista([H1|T1],[H1|T2],Creata):- not(number(H1)),creeazalista(T1,T2,Creata).

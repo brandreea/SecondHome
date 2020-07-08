@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/frontpage"
-    tools:context=".mains.MainActivity">
+    tools:context=".activities.mains.MainActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

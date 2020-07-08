@@ -1,7 +1,5 @@
 package com.secondhome.data.model.request.body;
 
-import com.secondhome.data.model.AppSingleton;
-
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,24 +1,17 @@
 package com.secondhome.data.model.request.call;
 
-import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.secondhome.data.model.AppSingleton;
-import com.secondhome.data.model.LoggedInUser;
 import com.secondhome.data.model.request.body.LoginRequestBody;
 import com.secondhome.data.model.response.LoginResponse;
-import com.secondhome.login.LoginActivity;
-import com.secondhome.mains.Main2LoggedInActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class LoginRequestCall {
