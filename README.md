@@ -51,7 +51,6 @@ You can update your pet's details, as well as delete it or view its adoption sta
 ### See our locations
 
 You can now see our physical locations.
-
 ![Location](/app-overview/Location.png)
 ![ListOfLocations](/app-overview/ListOfLocations.png)
 
