@@ -4,7 +4,7 @@
 ## Team
 * Bran Andreea: Mobile
 * Duncea Vlad: [Backend](https://github.com/VladDuncea/SecondHome/tree/master/WEB/server)
-* Pascu Bianca: [Frontend](https://github.com/VladDuncea/SecondHome/tree/master/WEB)
+* Pascu Bianca: [Frontend(Web)](https://github.com/VladDuncea/SecondHome/tree/master/WEB)
 
 SecondHome is a prototype for a Romanian re-homing service. In this repository, only the mobile app can be found.
 
