@@ -4,7 +4,7 @@
 ## Team
 * Bran Andreea: Mobile
 * Duncea Vlad: [Backend](https://github.com/VladDuncea/SecondHome/tree/master/WEB/server)
-* Pascu Bianca: [Frontend(Web)](https://github.com/VladDuncea/SecondHome/tree/master/WEB)
+* Pascu Bianca: [Frontend](https://github.com/VladDuncea/SecondHome/tree/master/WEB)
 
 SecondHome is a prototype for a Romanian re-homing service. In this repository, only the mobile app can be found.
 
@@ -51,6 +51,7 @@ You can update your pet's details, as well as delete it or view its adoption sta
 ### See our locations
 
 You can now see our physical locations.
+
 ![Location](/app-overview/Location.png)
 ![ListOfLocations](/app-overview/ListOfLocations.png)
 
