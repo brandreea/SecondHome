@@ -17,7 +17,8 @@ This app provides its users the further features:
   - Contact the SecondHome Team through the Contact Feature;
 
 # Get started!
-Let's take a tour through the app.
+Let's take a tour through the app.  
+
 ![Starting Page](/app-overview/Home.png)
 
 
@@ -26,22 +27,37 @@ You can use the app as a subscribed user, ar well as just a guest.
 ### Login
 You can sign into our service through the app.
 
+![Login](/app-overview/Login.png)
 ### Register
 Don't have an account? Create one now!
 
+![Register](/app-overview/Register.png)
+
 ### See the pets
-See all the animals that are listed by you or other users.
+See all the animals that are listed by you or other users. 
+Touch the menu icon on the left corner to view the pet cathegories.
+
+![Menu](/app-overview/Menu.png)
+
+You can now just scroll through them.  
+
+![Animals](/app-overview/ViewAnimals.png)
 
 ##### View your own animals' profile
 
 You can update your pet's details, as well as delete it or view its adoption status.
 
+![MyAnimal](/app-overview/MyAnimal.png)
 ### See our locations
 
 You can now see our physical locations.
 
+![Location](/app-overview/Location.png)
+![ListOfLocations](/app-overview/ListOfLocations.png)
+
 ### Write us!
 Still have some questions? Do not hesitate to contact us, either using the contact details or through the form in the app.
-
+![Contact](/app-overview/Contact.png)
+![WriteUs](/app-overview/WriteUs.png)
 
 [More information about the web part here.](https://github.com/VladDuncea/SecondHome)
