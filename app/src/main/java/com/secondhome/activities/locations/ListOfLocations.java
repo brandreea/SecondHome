@@ -16,12 +16,13 @@ import android.widget.Button;
 
 import com.google.android.material.navigation.NavigationView;
 import com.secondhome.R;
+import com.secondhome.data.model.listeners.OnClickShowLocationListener;
 import com.secondhome.data.model.others.AppSingleton;
 import com.secondhome.data.model.menu.ActivityFactory;
 
 
 public class ListOfLocations extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-    Button b1,b2,b3;
+    private Button [] locationButtons = new Button[3];
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mToggle;
     private NavigationView navigationView;
@@ -32,55 +33,27 @@ public class ListOfLocations extends AppCompatActivity implements NavigationView
         setContentView(R.layout.activity_list_of_locations);
 
         setNavigationViewListener();
-        mDrawer=(DrawerLayout) findViewById(R.id.locationList);
-        mToggle= new ActionBarDrawerToggle(this, mDrawer,R.string.open,R.string.close);
-        navigationView = (NavigationView) findViewById(R.id.mymenu);
-        mDrawer.addDrawerListener(mToggle);
-        mToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        b1=(Button) findViewById(R.id.location1);
-        View.OnClickListener listenerb1=new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppSingleton.getInstance(getApplicationContext()).setLocation(1);
-                Intent intent=new Intent(ListOfLocations.this, LocationActivity.class);
-                startActivity(intent);
-            }
-        };
-        b1.setOnClickListener(listenerb1);
-
-        b2=(Button) findViewById(R.id.location2);
-        View.OnClickListener listenerb2=new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppSingleton.getInstance(getApplicationContext()).setLocation(2);
-                Intent intent=new Intent(ListOfLocations.this, LocationActivity.class);
-                startActivity(intent);
-            }
-        };
-        b2.setOnClickListener(listenerb2);
-
-        b3=(Button) findViewById(R.id.location3);
-        View.OnClickListener listenerb3=new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppSingleton.getInstance(getApplicationContext()).setLocation(3);
-                Intent intent=new Intent(ListOfLocations.this, LocationActivity.class);
-                startActivity(intent);
-            }
-        };
-        b3.setOnClickListener(listenerb3);
+        int [] id = new int[]{R.id.location1, R.id.location2,R.id.location3};
+        for(int i=1;i<=3;i++){
+            locationButtons[i-1] = findViewById(id[i-1]);
+            View.OnClickListener listener= new OnClickShowLocationListener(this,
+                    R.id.showLocations,i);
+            locationButtons[i-1].setOnClickListener(listener);
+        }
 
     }
     private void setNavigationViewListener() {
-        System.out.println("setting navigation listener");
-        NavigationView navigationView = (NavigationView) findViewById(R.id.mymenu);
+        navigationView = (NavigationView) findViewById(R.id.mymenu);
         navigationView.setNavigationItemSelectedListener(this);
+        mDrawer=(DrawerLayout) findViewById(R.id.locationList);
+        mToggle= new ActionBarDrawerToggle(this, mDrawer,R.string.open,R.string.close);
+        mDrawer.addDrawerListener(mToggle);
+        mToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        System.out.println("in here");
         if(mToggle.onOptionsItemSelected(item))
         {
             return true;
@@ -89,8 +62,7 @@ public class ListOfLocations extends AppCompatActivity implements NavigationView
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        System.out.println("On navigation selected item");
-        System.out.println(AppSingleton.getInstance(getApplicationContext()).getAnimalsToShow());
+
         Intent intent = ActivityFactory.getIntent(ListOfLocations.this,item.getItemId());
         startActivity(intent);
         mDrawer.closeDrawer(GravityCompat.START);

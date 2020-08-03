@@ -10,6 +10,15 @@ import com.secondhome.data.model.others.AppContext;
 
 public class OnClickSwitchActivityListener implements View.OnClickListener {
     private int activityId;
+
+    public int getActivityId() {
+        return activityId;
+    }
+
+    public AppCompatActivity getAppCompatActivity() {
+        return appCompatActivity;
+    }
+
     private AppCompatActivity appCompatActivity;
     public OnClickSwitchActivityListener(AppCompatActivity appCompatActivity, int activityId){
         this.activityId = activityId;

@@ -33,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/loginButton"
             android:layout_width="139dp"
             android:layout_height="50dp"
             android:layout_marginTop="394dp"
@@ -47,7 +47,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/registerButton"
             android:layout_width="139dp"
             android:layout_height="50dp"
             android:layout_marginTop="456dp"

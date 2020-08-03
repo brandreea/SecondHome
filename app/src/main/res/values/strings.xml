@@ -60,4 +60,6 @@ Tu ți-ai găsit tovarășul patruped?
     <string name="adoption_state_acc">Cerere de adopție acceptata</string>
     <string name="details">Mai multe detalii</string>
     <string name="animal_age">Vârstă: %1$s</string>
+<!--    URLS-->
+    <string name="url_write_us">https://secondhome.fragmentedpixel.com/server/sendemail.php/</string>
 </resources>

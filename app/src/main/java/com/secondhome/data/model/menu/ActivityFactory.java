@@ -10,6 +10,9 @@ import com.secondhome.activities.contact.AchievmentsActivity;
 import com.secondhome.activities.contact.ContactActivity;
 import com.secondhome.activities.contact.FacilitiesActivity;
 import com.secondhome.activities.contact.WriteUs;
+import com.secondhome.activities.locations.LocationActivity;
+import com.secondhome.activities.login.RegisterActivity;
+import com.secondhome.activities.showanimals.AddAnimalFormActivity;
 import com.secondhome.data.model.others.AppContext;
 import com.secondhome.data.model.others.AppSingleton;
 import com.secondhome.activities.locations.ListOfLocations;
@@ -89,6 +92,18 @@ public class ActivityFactory {
                 break;
             case R.id.contactUs:
                 intent = new Intent(packageContext, WriteUs.class);
+                break;
+            case R.id.registerButton:
+                intent = new Intent(packageContext, RegisterActivity.class);
+                break;
+            case R.id.loginButton:
+                intent = new Intent(packageContext, LoginActivity.class);
+                break;
+            case R.id.animalForm:
+                intent = new Intent(packageContext, AddAnimalFormActivity.class);
+                break;
+            case R.id.showLocations:
+                intent = new Intent(packageContext, LocationActivity.class);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + menuId);

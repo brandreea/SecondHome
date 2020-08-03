@@ -18,10 +18,12 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.secondhome.R;
+import com.secondhome.data.model.listeners.OnClickSwitchActivityListener;
 import com.secondhome.data.model.others.AppSingleton;
 import com.secondhome.activities.login.LoginActivity;
 import com.secondhome.data.model.menu.ActivityFactory;
-import com.secondhome.activities.showanimals.AddAnimalFormActivity;
+
+import java.util.Objects;
 
 public class Main2LoggedInActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -41,34 +43,18 @@ public class Main2LoggedInActivity extends AppCompatActivity implements Navigati
         nameMessage = findViewById(R.id.userMessage);
         nameMessage.append(" Bine ai venit, " + AppSingleton.getInstance(getApplicationContext()).getLoggedInUserName().toString() + "!");
 
-        mDrawer = findViewById(R.id.mainmenu);
-        mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open, R.string.close);
-        navigationView = findViewById(R.id.mymenu);
-        mDrawer.addDrawerListener(mToggle);
-        mToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //logout
         logout = findViewById(R.id.logout);
-        View.OnClickListener listenerLogout = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppSingleton.getInstance(getApplicationContext()).logoutUser();
-                Toast.makeText(getApplicationContext(), "Ati fost deconectat", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Main2LoggedInActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        View.OnClickListener listenerLogout = v -> {
+            AppSingleton.getInstance(getApplicationContext()).logoutUser();
+            Toast.makeText(getApplicationContext(), "Ati fost deconectat", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Main2LoggedInActivity.this, MainActivity.class);
+            startActivity(intent);
         };
         logout.setOnClickListener(listenerLogout);
 
         addAnimal = findViewById(R.id.animalForm);
-        View.OnClickListener listenerAddAnimal = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Main2LoggedInActivity.this, AddAnimalFormActivity.class);
-                startActivity(intent);
-            }
-        };
+        View.OnClickListener listenerAddAnimal = new OnClickSwitchActivityListener(this,R.id.animalForm);
+
         addAnimal.setOnClickListener(listenerAddAnimal);
     }
 
@@ -76,6 +62,12 @@ public class Main2LoggedInActivity extends AppCompatActivity implements Navigati
     private void setNavigationViewListener() {
         navigationView = findViewById(R.id.mymenu);
         navigationView.setNavigationItemSelectedListener(this);
+        mDrawer = findViewById(R.id.mainmenu);
+        mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open, R.string.close);
+        navigationView = findViewById(R.id.mymenu);
+        mDrawer.addDrawerListener(mToggle);
+        mToggle.syncState();
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -88,13 +80,7 @@ public class Main2LoggedInActivity extends AppCompatActivity implements Navigati
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        System.out.println("in here");
-        if (item.getItemId() == R.id.db) {
-            System.out.println("in here");
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            return true;
-        }
+
         if (mToggle.onOptionsItemSelected(item)) {
             return true;
         }

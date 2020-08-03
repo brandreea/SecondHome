@@ -137,7 +137,8 @@ public class MyAnimalActivity extends AppCompatActivity implements NavigationVie
                     edit.setOnClickListener(listenerEdit);
                     delete.setOnClickListener(deleteListener);
                     if(AppSingleton.getInstance(getApplicationContext()).getAdoptionState()>0)
-                    adopt.setText("Cerere de dare spre adoptie");
+                    {adopt.setText("Cerere dare spre adoptie acceptata");
+                    adopt.setEnabled(false);}
                     else adopt.setText("Da spre adoptie.");
 
                 } catch(JSONException e)
@@ -181,21 +182,15 @@ public class MyAnimalActivity extends AppCompatActivity implements NavigationVie
             StringRequest strReq= new StringRequest(
                     Request.Method.POST,
                     UrlForAdoptingAnimal,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.d("AnimalProfile", "Delete Response: "+ response.toString());
-                            Toast.makeText(getApplicationContext(),"Animaluțul a fost dat spre adoptie cu succes",Toast.LENGTH_LONG).show();
-                            Intent intent=new Intent(MyAnimalActivity.this,MyAnimalsActivity.class);
-                            startActivity(intent);
-                        }
+                    response -> {
+                        Log.d("AnimalProfile", "Delete Response: "+ response.toString());
+                        Toast.makeText(getApplicationContext(),"Animaluțul a fost dat spre adoptie cu succes",Toast.LENGTH_LONG).show();
+                        Intent intent=new Intent(MyAnimalActivity.this,MyAnimalsActivity.class);
+                        startActivity(intent);
                     },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.e("AnimalProfileActivity", " error: "+ error.getMessage());
-                            Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG);
-                        }
+                    error -> {
+                        Log.e("AnimalProfileActivity", " error: "+ error.getMessage());
+                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG);
                     }){
                 @Override
                 protected Map<String,String> getParams(){
@@ -203,15 +198,6 @@ public class MyAnimalActivity extends AppCompatActivity implements NavigationVie
                             AppSingleton.getInstance(getApplicationContext()).getAnimalPid(),
                             AppSingleton.getInstance(getApplicationContext()).getUser().getUID().toString(),
                             "0").map();
-//                    Map<String,String> params= new HashMap<>();
-//                    params.put("security_code", "8981ASDGHJ22123");
-//                    System.out.println(AppSingleton.getInstance(getApplicationContext()).getUser());
-//                    params.put("UID",AppSingleton.getInstance(getApplicationContext()).getUser().getUID().toString());
-//                    params.put("PID", AppSingleton.getInstance(getApplicationContext()).getAnimalPid());
-//                    params.put("request_type","0");
-//                    System.out.println(params.toString());
-
-//                    return params;
                 }
             };
             AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,"deleteAnimal");
@@ -227,46 +213,29 @@ public class MyAnimalActivity extends AppCompatActivity implements NavigationVie
         edit=(Button) findViewById(R.id.editAnimal);
         delete=(Button) findViewById(R.id.deleteAnimal);
     }
-    private View.OnClickListener deleteListener =new View.OnClickListener()
-    {
-        @Override
-        public void onClick(View v){
-            System.out.println("Trying delete animal");
-            StringRequest strReq= new StringRequest(
-                    Request.Method.POST,
-                    UrlForDeletingAnimal,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.d("AnimalProfile", "Delete Response: "+ response.toString());
-                            Toast.makeText(getApplicationContext(),"Animaluțul a fost sters cu succes",Toast.LENGTH_LONG).show();
-                            Intent intent=new Intent(MyAnimalActivity.this,MyAnimalsActivity.class);
-                            startActivity(intent);
-                        }
-                    },
-                    new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("AnimalProfileActivity", " error: "+ error.getMessage());
-                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG);
-                    }
-            }){
-                @Override
-                protected Map<String,String> getParams(){
-//                    Map<String,String> params= new HashMap<>();
-//                    params.put("security_code", "8981ASDGHJ22123");
-//                    System.out.println(AppSingleton.getInstance(getApplicationContext()).getUser());
-//                    params.put("UID",AppSingleton.getInstance(getApplicationContext()).getUser().getUID().toString());
-//                    params.put("PID", AppSingleton.getInstance(getApplicationContext()).getAnimalPid());
-//                    System.out.println(params.toString());
-//                    return params;
-                    return new AnimalRequest(AppSingleton.getInstance(getApplicationContext()).getAnimalPid(),
-                            AppSingleton.getInstance(getApplicationContext()).getUser().getUID().toString()).map();
-                }
-            };
-            AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,"deleteAnimal");
+    private View.OnClickListener deleteListener = v -> {
+        System.out.println("Trying delete animal");
+        StringRequest strReq= new StringRequest(
+                Request.Method.POST,
+                UrlForDeletingAnimal,
+                response -> {
+                    Log.d("AnimalProfile", "Delete Response: "+ response.toString());
+                    Toast.makeText(getApplicationContext(),"Animaluțul a fost sters cu succes",Toast.LENGTH_LONG).show();
+                    Intent intent=new Intent(MyAnimalActivity.this,MyAnimalsActivity.class);
+                    startActivity(intent);
+                },
+                error -> {
+                    Log.e("AnimalProfileActivity", " error: "+ error.getMessage());
+                    Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG);
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                return new AnimalRequest(AppSingleton.getInstance(getApplicationContext()).getAnimalPid(),
+                        AppSingleton.getInstance(getApplicationContext()).getUser().getUID().toString()).map();
+            }
+        };
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(strReq,"deleteAnimal");
 
-        }
     };
     private void setNavigationViewListener() {
         System.out.println("setting navigation listener");

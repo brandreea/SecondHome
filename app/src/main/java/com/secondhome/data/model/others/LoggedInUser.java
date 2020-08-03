@@ -5,6 +5,10 @@ package com.secondhome.data.model.others;
  */
 public class LoggedInUser {
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
     private String userEmail;
     private String displayName;
     private String UID;

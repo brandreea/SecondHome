@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.secondhome.R;
+import com.secondhome.data.model.listeners.OnClickSwitchActivityListener;
 import com.secondhome.data.model.others.AppSingleton;
 import com.secondhome.activities.login.LoginActivity;
 import com.secondhome.activities.login.RegisterActivity;
@@ -32,29 +33,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         setNavigationViewListener();
-        mDrawer = findViewById(R.id.mainmenu);
-        mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open, R.string.close);
-//
-        mDrawer.addDrawerListener(mToggle);
-        mToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        login = findViewById(R.id.button5);
-        register = findViewById(R.id.button6);
 
-        View.OnClickListener listenerLogin = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        };
-        View.OnClickListener listenerRegister = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        };
+        login = findViewById(R.id.loginButton);
+        register = findViewById(R.id.registerButton);
+
+        View.OnClickListener listenerLogin = new OnClickSwitchActivityListener(this,R.id.loginButton);
+        View.OnClickListener listenerRegister = new OnClickSwitchActivityListener(this,R.id.registerButton);
         login.setOnClickListener(listenerLogin);
         register.setOnClickListener(listenerRegister);
 
@@ -62,14 +46,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     private void setNavigationViewListener() {
-        System.out.println("setting navigation listener");
+        mDrawer = findViewById(R.id.mainmenu);
+        mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open, R.string.close);
+        mDrawer.addDrawerListener(mToggle);
+        mToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = (NavigationView) findViewById(R.id.mymenu);
         navigationView.setNavigationItemSelectedListener(this);
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        System.out.println("On navigation selected item");
-        System.out.println(AppSingleton.getInstance(getApplicationContext()).getAnimalsToShow());
+
         Intent intent = ActivityFactory.getIntent(MainActivity.this,item.getItemId());
         startActivity(intent);
         mDrawer.closeDrawer(GravityCompat.START);
