@@ -57,6 +57,7 @@ You can now see our physical locations.
 
 ### Write us!
 Still have some questions? Do not hesitate to contact us, either using the contact details or through the form in the app.
+
 ![Contact](/app-overview/Contact.png)
 ![WriteUs](/app-overview/WriteUs.png)
 
