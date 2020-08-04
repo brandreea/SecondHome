@@ -20,7 +20,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.secondhome.R;
 import com.secondhome.data.model.listeners.OnClickSwitchActivityListener;
 import com.secondhome.data.model.others.AppSingleton;
-import com.secondhome.activities.login.LoginActivity;
 import com.secondhome.data.model.menu.ActivityFactory;
 
 import java.util.Objects;
@@ -33,7 +32,6 @@ public class Main2LoggedInActivity extends AppCompatActivity implements Navigati
     private Button addAnimal;
     private ActionBarDrawerToggle mToggle;
     private NavigationView navigationView;
-    private ActionMenuItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +72,7 @@ public class Main2LoggedInActivity extends AppCompatActivity implements Navigati
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent intent = ActivityFactory.getIntent(Main2LoggedInActivity.this,item.getItemId());
         startActivity(intent);
+//        finish();
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }

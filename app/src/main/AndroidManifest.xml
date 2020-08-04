@@ -16,12 +16,12 @@
             android:name="com.example.secondhome.MenuActivity"
             android:label="@string/title_activity_menu"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".activities.showanimals.MyAnimalActivity" />
-        <activity android:name=".activities.showanimals.EditAnimalForm" />
+        <activity android:name=".activities.showanimals.ui.MyAnimalActivity" />
+        <activity android:name=".activities.showanimals.ui.EditAnimalForm" />
         <activity android:name=".activities.login.MyProfileActivity" />
-        <activity android:name=".activities.showanimals.AnimalProfileActivity" />
-        <activity android:name=".activities.showanimals.MyAnimalsActivity" />
-        <activity android:name=".activities.locations.ListOfLocations" />
+        <activity android:name=".activities.showanimals.ui.AnimalProfileActivity" />
+        <activity android:name=".activities.showanimals.ui.MyAnimalsActivity" />
+        <activity android:name=".activities.locations.ui.ListOfLocations" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -30,19 +30,19 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".activities.locations.LocationActivity" />
-        <activity android:name=".activities.contact.WriteUs" />
-        <activity android:name=".activities.showanimals.AnimalsActivity" />
-        <activity android:name=".activities.contact.AchievmentsActivity" />
-        <activity android:name=".activities.contact.FacilitiesActivity" />
-        <activity android:name=".activities.contact.AboutUsActivity" />
-        <activity android:name=".activities.showanimals.AddAnimalFormActivity$AboutUsActivity" />
-        <activity android:name=".activities.showanimals.AddAnimalFormActivity" />
-        <activity android:name=".activities.contact.ContactActivity" />
-        <activity android:name=".activities.login.RegisterActivity" />
+        <activity android:name=".activities.locations.ui.LocationActivity" />
+        <activity android:name=".activities.contact.ui.WriteUs" />
+        <activity android:name=".activities.showanimals.ui.AnimalsActivity" />
+        <activity android:name=".activities.contact.ui.AchievmentsActivity" />
+        <activity android:name=".activities.contact.ui.FacilitiesActivity" />
+        <activity android:name=".activities.contact.ui.AboutUsActivity" />
+        <activity android:name=".activities.showanimals.ui.AddAnimalFormActivity$AboutUsActivity" />
+        <activity android:name=".activities.showanimals.ui.AddAnimalFormActivity" />
+        <activity android:name=".activities.contact.ui.ContactActivity" />
+        <activity android:name=".activities.login.ui.RegisterActivity" />
         <activity android:name=".activities.mains.Main2LoggedInActivity" />
         <activity
-            android:name=".activities.login.LoginActivity"
+            android:name=".activities.login.ui.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity android:name=".activities.mains.MainActivity">
             <intent-filter>

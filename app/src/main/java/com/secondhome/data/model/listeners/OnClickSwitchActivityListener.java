@@ -11,9 +11,7 @@ import com.secondhome.data.model.others.AppContext;
 public class OnClickSwitchActivityListener implements View.OnClickListener {
     private int activityId;
 
-    public int getActivityId() {
-        return activityId;
-    }
+
 
     public AppCompatActivity getAppCompatActivity() {
         return appCompatActivity;
@@ -26,7 +24,8 @@ public class OnClickSwitchActivityListener implements View.OnClickListener {
     }
     @Override
     public void onClick(View v) {
-        Intent intent = ActivityFactory.getIntent(this.appCompatActivity,this.activityId);
-        this.appCompatActivity.startActivity(intent);
+        Intent intent = ActivityFactory.getIntent(appCompatActivity,activityId);
+        appCompatActivity.startActivity(intent);
+//        appCompatActivity.finish();
     }
 }

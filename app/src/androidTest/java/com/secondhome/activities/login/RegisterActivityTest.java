@@ -8,7 +8,8 @@ import androidx.test.rule.ActivityTestRule;
 
 
 import com.secondhome.R;
-import com.secondhome.data.model.request.RegisterRequest;
+import com.secondhome.activities.login.ui.RegisterActivity;
+import com.secondhome.activities.login.request.body.RegisterRequest;
 
 import org.junit.After;
 import org.junit.Before;

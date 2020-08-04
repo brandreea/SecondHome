@@ -25,7 +25,7 @@ import com.secondhome.R;
 import com.secondhome.data.model.others.AppSingleton;
 import com.secondhome.data.model.others.User;
 import com.secondhome.data.model.menu.ActivityFactory;
-import com.secondhome.activities.showanimals.MyAnimalsActivity;
+import com.secondhome.activities.showanimals.ui.MyAnimalsActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;

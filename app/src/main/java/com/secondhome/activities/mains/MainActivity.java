@@ -15,9 +15,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.secondhome.R;
 import com.secondhome.data.model.listeners.OnClickSwitchActivityListener;
-import com.secondhome.data.model.others.AppSingleton;
-import com.secondhome.activities.login.LoginActivity;
-import com.secondhome.activities.login.RegisterActivity;
 import com.secondhome.data.model.menu.ActivityFactory;
 
 import org.jetbrains.annotations.NotNull;
@@ -46,13 +43,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     private void setNavigationViewListener() {
+        navigationView =  findViewById(R.id.mymenu);
+        navigationView.setNavigationItemSelectedListener(this);
         mDrawer = findViewById(R.id.mainmenu);
         mToggle = new ActionBarDrawerToggle(this, mDrawer, R.string.open, R.string.close);
+        navigationView = findViewById(R.id.mymenu);
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        navigationView = (NavigationView) findViewById(R.id.mymenu);
-        navigationView.setNavigationItemSelectedListener(this);
+
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
