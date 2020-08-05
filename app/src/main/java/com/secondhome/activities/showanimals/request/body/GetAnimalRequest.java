@@ -18,7 +18,7 @@ public class GetAnimalRequest implements Request {
     @Override
     public Map<String,String> map(){
         Map<String,String> params=new HashMap<>();
-        params.put("security_code", "8981ASDGHJ22123");
+        params.put("security_code", securityCode);
         params.put("PID", this.pid);
         params.put("UID", this.uid);
         return params;

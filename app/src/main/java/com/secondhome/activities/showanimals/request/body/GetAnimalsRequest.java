@@ -1,6 +1,5 @@
 package com.secondhome.activities.showanimals.request.body;
 
-import android.util.Log;
 
 import com.secondhome.data.model.request.body.Request;
 

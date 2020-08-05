@@ -3,7 +3,6 @@ package com.secondhome.activities.login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.ActionMenuItem;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -31,12 +30,14 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.picasso.Picasso;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MyProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private ImageView profilePic;
@@ -44,8 +45,6 @@ public class MyProfileActivity extends AppCompatActivity implements NavigationVi
     private Button viewMyAnimals;
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mToggle;
-    private NavigationView navigationView;
-    private ActionMenuItem item;
     private static final String UrlForUser="https://secondhome.fragmentedpixel.com/server/getuser.php/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +53,12 @@ public class MyProfileActivity extends AppCompatActivity implements NavigationVi
 
         loadViews();
         setNavigationViewListener();
-
-        // TODO CHANGE ID
         mDrawer=(DrawerLayout) findViewById(R.id.userProfile);
         mToggle= new ActionBarDrawerToggle(this, mDrawer,R.string.open,R.string.close);
-
-        // TODO CHANGE ID
-        navigationView = (NavigationView) findViewById(R.id.mymenu);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.mymenu);
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         loadUserData();
 
     }
@@ -85,10 +79,6 @@ public class MyProfileActivity extends AppCompatActivity implements NavigationVi
                     Moshi moshi = new Moshi.Builder().build();
                     JsonAdapter<User> adapter = moshi.adapter(User.class);
                     User a =adapter.fromJson(obj.toString());
-                    System.out.println(a.toString());
-                    System.out.println(animalsNo.toString());
-                    System.out.println(name.toString());
- //                   System.out.println(a.toString());
                     Picasso.get().load("https://i.imgur.com/q52cLwE.png").into(profilePic);
                     profilePic.setPadding(0,40,0,20);
                     profilePic.setMinimumWidth(600);
@@ -96,32 +86,23 @@ public class MyProfileActivity extends AppCompatActivity implements NavigationVi
                     email.setText(a.getUser_email());
                     name.setText(a.getFirst_name()+" "+a.getLast_name());
                     animalsNo.setText(Integer.toString(a.getNr_owned_pets()));
-
-                    View.OnClickListener listenerViewAnimal=new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent=new Intent(MyProfileActivity.this, MyAnimalsActivity.class);
-                            startActivity(intent);
-                        }
+                    View.OnClickListener listenerViewAnimal= v -> {
+                        Intent intent=new Intent(MyProfileActivity.this, MyAnimalsActivity.class);
+                        startActivity(intent);
                     };
                    viewMyAnimals.setOnClickListener(listenerViewAnimal);
 
                 } catch(JSONException e)
                 {
-                    System.out.println("error here");
                     e.printStackTrace();
                 } catch (IOException e) {
-                    System.out.println("error here");
                     e.printStackTrace();
                 }
             }
 
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("UserProfileActivity", " error: "+ error.getMessage());
-                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG);
-            }
+        }, error -> {
+            Log.e("UserProfileActivity", " error: "+ error.getMessage());
+            Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG);
         })
         {
             @Override
@@ -143,13 +124,11 @@ public class MyProfileActivity extends AppCompatActivity implements NavigationVi
         email=(TextView) findViewById(R.id.email2);
         animalsNo=(TextView) findViewById(R.id.animalNo2);
         viewMyAnimals= (Button) findViewById(R.id.viewMyAnimals);
-//        edit=(Button) findViewById(R.id.editProfile);
 
     }
 
     private void setNavigationViewListener() {
         System.out.println("setting navigation listener");
-        // TODO CHANGE ID
         NavigationView navigationView = (NavigationView) findViewById(R.id.mymenu);
         System.out.println(navigationView.toString());
         navigationView.setNavigationItemSelectedListener(this);
@@ -164,15 +143,13 @@ public class MyProfileActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(@NotNull MenuItem item){
         System.out.println("in OptionsItemSelected");
 
         if(mToggle.onOptionsItemSelected(item))
         {
-            System.out.println("onOptionsItemSeletced time to shine");
             return true;
         }
-        System.out.println("onOptionsItemSeletced time");
         return super.onOptionsItemSelected(item);
     }
 }

@@ -1,8 +1,6 @@
 package com.secondhome.activities.login;
 
-/**
- * Data class that captures user information for logged in users retrieved from LoginRepository
- */
+
 public class LoggedInUser {
 
     public String getUserEmail() {

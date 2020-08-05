@@ -155,6 +155,7 @@
             android:background="@drawable/btn_shape_round_gray"
             android:width="100dp"
             android:height="80dp"
+            android:visibility="gone"
             android:text="Editează"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/description2" />
@@ -169,6 +170,7 @@
             android:width="100dp"
             android:height="80dp"
             android:text="Șterge"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.941"
             app:layout_constraintTop_toTopOf="@id/editAnimal" />
@@ -181,6 +183,7 @@
             android:width="160dp"
             android:height="80dp"
             android:text="Da spre adoptie"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.515"
             android:background="@drawable/btn_shape_round_gray"

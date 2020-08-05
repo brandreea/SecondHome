@@ -83,6 +83,7 @@ public class AnimalsListener extends RequestListener implements Response.Listene
         View.OnClickListener listenerViewAnimal= v -> {
             AppSingleton.getInstance(getApplicationContext())
                     .setAnimalPid(pid);
+//            AppSingleton.setAdoptionState(adoptionState);
             Intent intent=new Intent(getActivity(), AnimalProfileActivity.class);
             getActivity().startActivity(intent);
         };

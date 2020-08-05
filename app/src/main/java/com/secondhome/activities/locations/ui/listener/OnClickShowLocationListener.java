@@ -1,6 +1,5 @@
 package com.secondhome.activities.locations.ui.listener;
 
-import android.content.Intent;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;

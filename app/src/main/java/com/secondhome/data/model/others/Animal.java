@@ -42,7 +42,7 @@ public class Animal {
                 ", has_request=" + has_request +
                 ", request_type='" + request_type + '\'' +
                 ", request_state='" + request_state + '\'' +
-                ", image='" + image + '\'' +
+//                ", image='" + image + '\'' +
                 '}';
     }
 
